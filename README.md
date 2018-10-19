@@ -13,4 +13,4 @@ Keylogger that sends the keystrokes to the mail every x time
 
 #From the directory where program is
 
-`python ./keylogger`
+`python3 ./keylogger`
