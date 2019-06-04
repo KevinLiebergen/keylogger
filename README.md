@@ -21,3 +21,6 @@ $ `python3 keylogger.py`
 ## Stopping
 
 -  Write `Z` (capital zeta)
+
+
+[![Known Vulnerabilities](https://snyk.io/test/github/KevinLiebergen/keylogger/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/KevinLiebergen/keylogger?targetFile=requirements.txt)
